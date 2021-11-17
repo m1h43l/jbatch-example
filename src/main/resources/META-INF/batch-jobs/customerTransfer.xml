@@ -1,0 +1,19 @@
+<job id="customerTransfer"
+	xmlns="https://jakarta.ee/xml/ns/jakartaee" version="2.0">
+	
+	<listeners>
+		<listener ref="rpgnextgen.batch.util.EndJobListener" />
+	</listeners>
+	<step id="step1">
+		<chunk item-count="100">
+			<reader ref="rpgnextgen.batch.data.CustomerReader">
+				<properties>
+					<property name="customer" value="#{jobParameters['customer']}" />
+					<property name="date" value="#{jobParameters['date']}" />
+				</properties>
+			</reader>
+			<processor ref="rpgnextgen.batch.util.PassThroughItemProcessor" />
+			<writer ref="rpgnextgen.batch.util.ConsoleWriter" />
+		</chunk>
+	</step>
+</job>
